@@ -1,0 +1,56 @@
+{
+  "name": "front-end",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "@testing-library/jest-dom": "^5.12.0",
+    "@testing-library/react": "^11.2.7",
+    "@testing-library/user-event": "^12.8.3",
+    "bootstrap": "^4.6.0",
+    "bootstrap-icons": "^1.8.2",
+    "react": "^17.0.2",
+    "react-bootstrap": "^1.6.0",
+    "react-bootstrap-icons": "^1.8.1",
+    "react-confirm-alert": "^2.7.0",
+    "react-csv": "^2.2.2",
+    "react-dom": "^17.0.2",
+    "react-dropzone": "^11.3.2",
+    "react-dropzone-uploader": "^2.11.0",
+    "react-https-redirect": "^1.1.0",
+    "react-icons": "^4.2.0",
+    "react-image-crop": "^9.1.1",
+    "react-multiselect-dropdown-bootstrap": "^1.1.0",
+    "react-notifications": "^1.7.3",
+    "react-placeholder": "^4.1.0",
+    "react-redux": "^7.2.4",
+    "react-router-dom": "^6.2.1",
+    "react-scripts": "4.0.3",
+    "react-transition-group": "^4.4.2",
+    "recharts": "^2.1.9",
+    "web-vitals": "^1.1.2"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
