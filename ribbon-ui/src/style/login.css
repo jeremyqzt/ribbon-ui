@@ -1,0 +1,30 @@
+.center {
+  margin: auto;
+}
+
+.fullScreen {
+  height: 100vh;
+  overflow: hidden;
+}
+
+.white-background {
+  background-color: white;
+}
+
+.btnLnk {
+  background: none !important;
+  border: none;
+  padding: 0 !important;
+  color: #069;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.login_logo {
+  max-width: 35%;
+  margin-bottom: 24px;
+}
+
+.additional-login {
+  max-width: 400px;
+}
