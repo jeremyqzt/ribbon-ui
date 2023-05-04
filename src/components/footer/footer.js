@@ -13,7 +13,7 @@ export const Footer = () => {
       </Row>
       <Row className={"d-flex justify-content-center"}>
         <Col className={"d-flex justify-content-center"}>
-          <a href="https://github.com/jeremyqzt/receipts">
+          <a href="https://github.com/jeremyqzt/ribbon-ui">
             <span style={{ verticalAlign: "middle" }}>
               <Github style={{ verticalAlign: "top" }} size={18} />{" "}
             </span>
