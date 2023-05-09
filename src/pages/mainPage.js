@@ -43,6 +43,7 @@ export const MainPage = () => {
   } = useFetch(getReceipts, false, pageMeta);
 
   const currentReceipts = receiptsResp?.receipts || [];
+  const totalReceipts = receiptsResp?.total || 0;
 
   const [deletedReceipts, setDeletedReceipts] = useState([]);
   const [newlyCreatedReceipts, setNewlyCreatedReceipts] = useState([]);
@@ -69,6 +70,8 @@ export const MainPage = () => {
       <NotificationContainer />
       <SearchParams
         loading={isLoading}
+        total_receipts={totalReceipts}
+
         activeBucketResponse={activeBucketResponse}
         onCreateReceipt={(receipt) => {
           createLocalReceipt(receipt)
@@ -108,6 +111,7 @@ export const MainPage = () => {
         {!isLoading && !isError ? (
           <Paging
             total_count={receiptsResp?.pages || 0}
+            total_receipts={totalReceipts}
             cur_page={pageMeta.offset}
             setNewPage={setPaging}
           />

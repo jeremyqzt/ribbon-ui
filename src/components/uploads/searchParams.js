@@ -14,6 +14,7 @@ export const SearchParams = ({
   activeBucketResponse,
   loading,
   onCreateReceipt,
+  total_receipts,
 }) => {
   const searchRef = useRef();
   const changeSelection = (e) => {
@@ -74,7 +75,7 @@ export const SearchParams = ({
                     <Button
                       variant="danger"
                       style={{ height: 38 }}
-                      disabled={!activeBucketResponse}
+                      disabled={!activeBucketResponse || total_receipts >= 1000}
                       onClick={() => {
                         const postData = {
                           bucket: activeBucketResponse.id,

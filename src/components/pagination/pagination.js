@@ -2,7 +2,7 @@ import Pagination from "react-bootstrap/Pagination";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 
-const Paging = ({ total_count, cur_page, setNewPage }) => {
+const Paging = ({ total_count, cur_page, setNewPage, total_receipts }) => {
   let pagination = [];
 
   // if 7, show first, last and 5 in between
@@ -41,29 +41,52 @@ const Paging = ({ total_count, cur_page, setNewPage }) => {
     return null;
   }
 
-  const shouldDisableMove = (total_count <= 1);
+  const shouldDisableMove = total_count <= 1;
 
   return (
-    <Row className={"d-flex justify-content-center"}>
-      <Col className={"d-flex justify-content-center"}>
-        <Pagination>
-          <Pagination.First onClick={() => setNewPage(0)} disabled={shouldDisableMove} />
-          <Pagination.Prev onClick={() => setNewPage(Math.max(0, cur_page - 2))} disabled={shouldDisableMove} />
-          {pagination.map((page_num) => {
-            if (page_num === -1) {
-              return <Pagination.Ellipsis />;
-            }
-            return (
-              <Pagination.Item key={`paging-${page_num}`} active={cur_page + 1 === page_num} onClick={() => setNewPage(page_num - 1)}>
-                {page_num}
-              </Pagination.Item>
-            );
-          })}
-          <Pagination.Next onClick={() => setNewPage(Math.min(total_count - 1, cur_page + 1))} disabled={shouldDisableMove} />
-          <Pagination.Last onClick={() => setNewPage(total_count - 1)} disabled={shouldDisableMove}/>
-        </Pagination>
-      </Col>
-    </Row>
+    <>
+      <Row className={"d-flex justify-content-center"}>
+        <Col className={"d-flex justify-content-center"}>
+          <Pagination>
+            <Pagination.First
+              onClick={() => setNewPage(0)}
+              disabled={shouldDisableMove}
+            />
+            <Pagination.Prev
+              onClick={() => setNewPage(Math.max(0, cur_page - 2))}
+              disabled={shouldDisableMove}
+            />
+            {pagination.map((page_num) => {
+              if (page_num === -1) {
+                return <Pagination.Ellipsis />;
+              }
+              return (
+                <Pagination.Item
+                  key={`paging-${page_num}`}
+                  active={cur_page + 1 === page_num}
+                  onClick={() => setNewPage(page_num - 1)}
+                >
+                  {page_num}
+                </Pagination.Item>
+              );
+            })}
+            <Pagination.Next
+              onClick={() =>
+                setNewPage(Math.min(total_count - 1, cur_page + 1))
+              }
+              disabled={shouldDisableMove}
+            />
+            <Pagination.Last
+              onClick={() => setNewPage(total_count - 1)}
+              disabled={shouldDisableMove}
+            />
+          </Pagination>
+        </Col>
+      </Row>
+      <Row className={"d-flex justify-content-center"}>
+        <Col className={"d-flex justify-content-center"}>{`${total_receipts}/1000 Spaces Used`}</Col>
+      </Row>
+    </>
   );
 };
 
