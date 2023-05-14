@@ -131,7 +131,7 @@ export const BucketsPage = () => {
           <Row className={"mx-1 mt-5"}>
             <Col style={{ display: "flex", justifyContent: "space-between" }}>
               <h3>Other Destinations</h3>
-              <Button variant="danger" onClick={() => setShowModal(true)}>
+              <Button variant="danger" disabled={buckets.length >= 6} onClick={() => setShowModal(true)}>
                 Create New Bucket
               </Button>
             </Col>
@@ -140,7 +140,7 @@ export const BucketsPage = () => {
             <Col>
               <p>
                 Change the active bucket to attribute future receipts uploads to
-                the selected bucket.
+                the selected bucket. {`(${buckets?.length}/6 slots used)`}
               </p>
             </Col>
           </Row>
