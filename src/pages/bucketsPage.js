@@ -52,11 +52,6 @@ export const BucketsPage = () => {
     NotificationManager.success(`${name} Successfully Deleted`);
   };
 
-  const createBucket = (bucket) => {
-    setLocallyCreatedBuckets([...locallyCreatedBuckets, bucket]);
-    NotificationManager.success(`${bucket.name} Successfully Created`);
-  };
-
   const serverBuckets = response || [];
 
   const buckets = [
@@ -67,6 +62,15 @@ export const BucketsPage = () => {
       (bucket) => !locallyDeletedBuckets.includes(bucket.uid)
     ),
   ];
+
+  const createBucket = (bucket) => {
+    if (bucket.length > 6) {
+      NotificationManager.error(`Bucket limit reached, 6/6 used.`);
+      return;
+    }
+    setLocallyCreatedBuckets([...locallyCreatedBuckets, bucket]);
+    NotificationManager.success(`${bucket.name} Successfully Created`);
+  };
 
   const sliceIntoChunks = (arr, chunkSize) => {
     const res = [];
