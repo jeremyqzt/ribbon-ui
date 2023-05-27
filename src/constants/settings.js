@@ -16,6 +16,8 @@ export const resetPasswordForm = "user/resetPasswordForm/";
 export const bucketsUrl = "api/bucket/";
 export const activeBucketsUrl = "api/active/";
 export const receiptCreateUrl = "api/receipt/";
+export const receiptImageEditUrl = "api/receipt/updateImage/";
+
 export const vendorUrl = "api/vendor/";
 
 export const receiptUpdateUrl = "api/receipt/update/";

@@ -3,6 +3,7 @@ import {
   receiptCreateUrl,
   receiptUpdateUrl,
   vendorUrl,
+  receiptImageEditUrl,
 } from "../constants/settings";
 
 import { postData, getData, postFormData, serialize } from "./index";
@@ -110,6 +111,23 @@ export const postReceipt = async ({
   formData.append("setFields", setFields);
   formData.append("crop", JSONcrop);
   const path = `${domainRoot}${receiptCreateUrl}`;
+  return postFormData(path, formData, true).then((res) => {
+    if (!res.ok) {
+      throw new Error();
+    }
+    return res.json();
+  });
+};
+
+export const postReceiptImageUpdate = async ({
+  image,
+  uid,
+}) => {
+  const formData = new FormData();
+  formData.append("file", image);
+  formData.append("uid", uid);
+
+  const path = `${domainRoot}${receiptImageEditUrl}`;
   return postFormData(path, formData, true).then((res) => {
     if (!res.ok) {
       throw new Error();
