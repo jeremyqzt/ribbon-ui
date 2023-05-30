@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
@@ -309,6 +309,8 @@ const ReceiptRow = ({
   const [localUploadDate, setUploadDate] = useState();
   const [localDescrip, setLocalDescrip] = useState();
   const [loading, setLoading] = useState(false);
+  const [fileName, setFileName] = useState(false);
+  const hiddenFileInput = useRef(null);
 
   const [categorySelection, setCategorySelection] = useState(
     lineInfo.category || 0
@@ -370,6 +372,11 @@ const ReceiptRow = ({
     <div>{"No Description"}</div>
   );
 
+  const handleClick = (event) => {
+    if (hiddenFileInput?.current) {
+      hiddenFileInput.current.click();
+    }
+  };
   return (
     <tr
       className={`receipt_table_row ${
@@ -377,22 +384,56 @@ const ReceiptRow = ({
       }`}
     >
       <td>
-        <img
-          className="receipt_preview"
-          alt={"Opps, Loading Failed!"}
-          src={
-            lineInfo.thumbnail
-              ? getLogoUrl(lineInfo.thumbnail)
-              : logoPlaceholder
-          }
-          onClick={
-            lineInfo.image_url
-              ? () => {
-                  setModalImageAndOpen(getLogoUrl(lineInfo.image_url));
-                }
-              : () => {}
-          }
-        />
+        {edit ? (
+          <>
+            <img
+              alt={"wtf"}
+              className="receipt_preview_small"
+              src={
+                lineInfo.thumbnail
+                  ? getLogoUrl(lineInfo.thumbnail)
+                  : logoPlaceholder
+              }
+              onClick={
+                lineInfo.image_url
+                  ? () => {
+                      setModalImageAndOpen(getLogoUrl(lineInfo.image_url));
+                    }
+                  : () => {}
+              }
+            />
+            <input
+              type="file"
+              ref={hiddenFileInput}
+              style={{ display: "none" }}
+            />
+            <Button
+              variant="link"
+              onClick={() => {
+                handleClick();
+              }}
+            >
+              Update Image
+            </Button>
+          </>
+        ) : (
+          <img
+            className="receipt_preview"
+            alt={"Opps, Loading Failed!"}
+            src={
+              lineInfo.thumbnail
+                ? getLogoUrl(lineInfo.thumbnail)
+                : logoPlaceholder
+            }
+            onClick={
+              lineInfo.image_url
+                ? () => {
+                    setModalImageAndOpen(getLogoUrl(lineInfo.image_url));
+                  }
+                : () => {}
+            }
+          />
+        )}
       </td>
       <td>
         {edit ? (

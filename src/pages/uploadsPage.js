@@ -8,7 +8,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "react-dropzone-uploader/dist/styles.css";
 
 import { NotificationContainer } from "react-notifications";
-import {Footer} from '../components/footer/footer';
+import { Footer } from "../components/footer/footer";
 
 export const ReceiptsPage = () => {
   return (

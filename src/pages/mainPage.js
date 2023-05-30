@@ -6,6 +6,10 @@ import LoadingLogo from "../components/loading/loading";
 import ServerError from "../components/error/serverError";
 
 import "../style/receiptContainer.css";
+import "../App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "react-dropzone-uploader/dist/styles.css";
+import "react-image-crop/dist/ReactCrop.css";
 
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
