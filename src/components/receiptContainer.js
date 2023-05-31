@@ -309,8 +309,10 @@ const ReceiptRow = ({
   const [localUploadDate, setUploadDate] = useState();
   const [localDescrip, setLocalDescrip] = useState();
   const [loading, setLoading] = useState(false);
-  const [fileName, setFileName] = useState(false);
+  const [, setFileName] = useState(false);
   const hiddenFileInput = useRef(null);
+  const [resultImg, setResultImg] = useState(null);
+  const [picture, setPicture] = useState(null);
 
   const [categorySelection, setCategorySelection] = useState(
     lineInfo.category || 0
@@ -372,11 +374,24 @@ const ReceiptRow = ({
     <div>{"No Description"}</div>
   );
 
-  const handleClick = (event) => {
+  const handleClick = () => {
     if (hiddenFileInput?.current) {
       hiddenFileInput.current.click();
     }
   };
+
+  const onChangePicture = (e) => {
+    if (e.target.files[0]) {
+      setPicture(e.target.files[0]);
+      const reader = new FileReader();
+      reader.addEventListener("load", () => {
+        setResultImg(reader.result);
+        setFileName(e.target.files[0].name);
+      });
+      reader.readAsDataURL(e.target.files[0]);
+    }
+  };
+
   return (
     <tr
       className={`receipt_table_row ${
@@ -390,9 +405,11 @@ const ReceiptRow = ({
               alt={"wtf"}
               className="receipt_preview_small"
               src={
-                lineInfo.thumbnail
-                  ? getLogoUrl(lineInfo.thumbnail)
-                  : logoPlaceholder
+                !picture
+                  ? lineInfo.thumbnail
+                    ? getLogoUrl(lineInfo.thumbnail)
+                    : logoPlaceholder
+                  : resultImg
               }
               onClick={
                 lineInfo.image_url
@@ -402,9 +419,11 @@ const ReceiptRow = ({
                   : () => {}
               }
             />
+            <br />
             <input
               type="file"
               ref={hiddenFileInput}
+              onChange={(e) => onChangePicture(e)}
               style={{ display: "none" }}
             />
             <Button
