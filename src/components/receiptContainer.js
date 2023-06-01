@@ -562,7 +562,10 @@ const ReceiptRow = ({
                       "Receipt Successfully Updated!"
                     );
                   })
-                  .finally(() => setLoading(false));
+                  .finally(() => {
+                    setLoading(false);
+                    setPicture(null);
+                  });
               }
 
               setEdit(!edit);
