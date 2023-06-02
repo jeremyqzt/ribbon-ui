@@ -119,10 +119,7 @@ export const postReceipt = async ({
   });
 };
 
-export const postReceiptImageUpdate = async ({
-  image,
-  uid,
-}) => {
+export const postReceiptImageUpdate = async (image, uid) => {
   const formData = new FormData();
   formData.append("file", image);
   formData.append("uid", uid);

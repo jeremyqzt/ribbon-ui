@@ -14,6 +14,7 @@ import {
   deactivateReceipt,
   updateReceipts,
   getVendors,
+  postReceiptImageUpdate,
 } from "../utils/receiptUtils";
 import { getLogoUrl } from "../utils/index";
 import { NotificationManager } from "react-notifications";
@@ -440,9 +441,11 @@ const ReceiptRow = ({
             className="receipt_preview"
             alt={"Opps, Loading Failed!"}
             src={
-              lineInfo.thumbnail
-                ? getLogoUrl(lineInfo.thumbnail)
-                : logoPlaceholder
+              !picture
+                ? lineInfo.thumbnail
+                  ? getLogoUrl(lineInfo.thumbnail)
+                  : logoPlaceholder
+                : resultImg
             }
             onClick={
               lineInfo.image_url
@@ -557,14 +560,27 @@ const ReceiptRow = ({
               if (edit) {
                 setLoading(true);
                 updateReceipts(postData)
-                  .then(() => {
-                    NotificationManager.success(
-                      "Receipt Successfully Updated!"
-                    );
+                  .then(async () => {
+                    if (!picture) {
+                      NotificationManager.success(
+                        "Receipt Successfully Updated!"
+                      );
+                      return;
+                    }
+                    await postReceiptImageUpdate(picture, lineInfo.pk)
+                      .then(() => {
+                        NotificationManager.success(
+                          "Receipt Successfully Updated!"
+                        );
+                      })
+                      .catch(() => {
+                        NotificationManager.error(
+                          "Receipt Data Updated, but Image Update Failed!"
+                        );
+                      });
                   })
                   .finally(() => {
                     setLoading(false);
-                    setPicture(null);
                   });
               }
 
@@ -593,6 +609,7 @@ const ReceiptRow = ({
             onClick={() => {
               if (edit) {
                 setEdit(false);
+                setPicture(null);
               } else {
                 deleteReceipt(lineInfo.pk);
               }
