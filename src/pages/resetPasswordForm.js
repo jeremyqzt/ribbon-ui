@@ -70,7 +70,7 @@ export const PasswordResetStartForm = () => {
               "Request Password Reset"
             )}
           </Button>
-          {success ? <Alert variant={"success"}>Form Submitted!</Alert> : null}
+          {success ? <Alert variant={"success"}>Form Submitted. Please check your Email Inbox!</Alert> : null}
           {error ? <Alert variant={"danger"}>{error}</Alert> : null}
           <p className="mt-4">
             {"Already Have An Account?"}

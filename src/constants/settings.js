@@ -9,7 +9,9 @@ if (TESTING === false) {
 export const authUrl = "auth/token/";
 export const userCreateUrl = "user/create/";
 export const userDeleteUrl = "user/delete/";
+// This is an admin URL
 export const forgotPasswordUrl = "user/forgotPassword/";
+
 export const resetPasswordUrl = "user/resetPassword/";
 export const resetPasswordForm = "user/resetPasswordForm/";
 
