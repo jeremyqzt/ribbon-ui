@@ -53,7 +53,7 @@ export const PasswordResetStartForm = () => {
           <textarea
             rows="3"
             className="form-control mb-4"
-            placeholder="Tell us about your account. You'll receive a password reset link if we can verify the ownership."
+            placeholder="If you used a different email for signup. Please tell us more about your account here, we'll send a password reset link if we can verify ownership."
             onChange={(e) => {
               setDescription(e.target.value);
             }}
