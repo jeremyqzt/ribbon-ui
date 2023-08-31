@@ -37,7 +37,9 @@ export const PasswordResetStartForm = () => {
     <div>
       <div className="d-flex fullScreen">
         <div className="white-background justify-content-center center text-center border border-light p-5 shadow additional-login">
-          <img className={"login_logo"} src={logo} alt="logo" />
+          <a href="/">
+            <img className={"login_logo"} src={logo} alt="logo" />
+          </a>
           <p className="h2 noSelect">Ribbon Receipts</p>
           <p className="mb-4 noSelect">{"Password Reset"}</p>
           <input
@@ -70,7 +72,11 @@ export const PasswordResetStartForm = () => {
               "Request Password Reset"
             )}
           </Button>
-          {success ? <Alert variant={"success"}>Form Submitted. Please check your Email Inbox!</Alert> : null}
+          {success ? (
+            <Alert variant={"success"}>
+              Form Submitted. Please check your Email Inbox!
+            </Alert>
+          ) : null}
           {error ? <Alert variant={"danger"}>{error}</Alert> : null}
           <p className="mt-4">
             {"Already Have An Account?"}

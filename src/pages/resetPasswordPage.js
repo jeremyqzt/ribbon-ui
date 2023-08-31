@@ -35,7 +35,9 @@ export const PasswordResetStart = () => {
     <div>
       <div className="d-flex fullScreen">
         <div className="white-background justify-content-center center text-center border border-light p-5 shadow additional-login">
-          <img className={"login_logo"} src={logo} alt="logo" />
+          <a href="/">
+            <img className={"login_logo"} src={logo} alt="logo" />
+          </a>
           <p className="h2 noSelect">Ribbon Receipts</p>
           <p className="mb-4 noSelect">{"Password Reset"}</p>
           <input
@@ -48,7 +50,6 @@ export const PasswordResetStart = () => {
             }}
             value={email}
           />
-
           <Button
             className="btn btn-danger btn-block my-4"
             disabled={loading}
