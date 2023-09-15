@@ -19,12 +19,14 @@ import { deleteAccount } from "../../utils/index";
 import { getSettings } from "../../utils/settingUtils";
 import { useFetch } from "../../hooks/index";
 import { Pencil, CheckLg, Trash, PlusCircle } from "react-bootstrap-icons";
+import Modal from "react-bootstrap/Modal";
 
 import { saveSettings } from "../../utils/settingUtils";
 import { checkCookie } from "../../utils/index";
 import ServerError from "../error/serverError";
 import LoadingLogo from "../loading/loading";
 import Badge from "react-bootstrap/Badge";
+import QRCode from 'qrcode'
 
 import {
   CHANGE_PASSWORD,
@@ -34,6 +36,49 @@ import {
 } from "../../constants/constants";
 
 export const SettingsForm = () => {
+
+  const [showModal, setShowModal] = useState(false);
+
+  const generateQR = async text => {
+    try {
+      console.log(await QRCode.toDataURL(text))
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  generateQR("otpauth://totp/5%405.com?secret=asd&algorithm=SHA1&digits=6&period=30")
+
+  const OPTModal = (
+    <Modal
+      show={showModal}
+      onHide={() => setShowModal(false)}
+      size="lg"
+      aria-labelledby="contained-modal-title-vcenter"
+      centered
+    >
+      <Modal.Header closeButton>
+        <Modal.Title id="contained-modal-title-vcenter">
+          View Receipt
+        </Modal.Title>
+      </Modal.Header>
+      <Modal.Body className={"receipt_modal"}>
+
+      </Modal.Body>
+      <Modal.Footer>
+        <Button
+          variant="danger"
+          disabled={false}
+          onClick={() => {
+            setShowModal(false);
+          }}
+        >
+          Close
+        </Button>
+      </Modal.Footer>
+    </Modal>
+  );
+
   const {
     response: activeBucketResponse = [],
     error: activeBucketError = null,
