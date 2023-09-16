@@ -3,7 +3,7 @@ import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
 import { NotificationManager } from "react-notifications";
@@ -26,7 +26,7 @@ import { checkCookie } from "../../utils/index";
 import ServerError from "../error/serverError";
 import LoadingLogo from "../loading/loading";
 import Badge from "react-bootstrap/Badge";
-import QRCode from 'qrcode'
+import QRCode from "qrcode";
 
 import {
   CHANGE_PASSWORD,
@@ -36,22 +36,32 @@ import {
 } from "../../constants/constants";
 
 export const SettingsForm = () => {
-
   const [showModal, setShowModal] = useState(false);
+  const [qr, setQr] = useState(null);
 
-  const generateQR = async text => {
-    try {
-      console.log(await QRCode.toDataURL(text))
-    } catch (err) {
-      console.error(err)
+  useEffect(() => {
+    if (showModal) {
+      generateQR(
+        "otpauth://totp/5%405.com?secret=asd&algorithm=SHA1&digits=6&period=30"
+      ).then((ret) => {
+        setQr(ret);
+      });
     }
-  }
+  }, [showModal]);
 
-  generateQR("otpauth://totp/5%405.com?secret=asd&algorithm=SHA1&digits=6&period=30")
+  const generateQR = async (text) => {
+    try {
+      const ret = await QRCode.toDataURL(text);
+      console.log(await QRCode.toDataURL(text));
+      return ret;
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   const OPTModal = (
     <Modal
-      show={showModal}
+      show={true}
       onHide={() => setShowModal(false)}
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"
@@ -63,7 +73,7 @@ export const SettingsForm = () => {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body className={"receipt_modal"}>
-
+        <img src={qr} />
       </Modal.Body>
       <Modal.Footer>
         <Button
@@ -228,6 +238,7 @@ export const SettingsForm = () => {
   );
   return (
     <>
+      {OPTModal}
       <Container>
         <Row>
           <Col xs={6}>
