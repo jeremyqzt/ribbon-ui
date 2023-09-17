@@ -3,7 +3,7 @@ import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
 import { NotificationManager } from "react-notifications";
@@ -19,14 +19,12 @@ import { deleteAccount } from "../../utils/index";
 import { getSettings } from "../../utils/settingUtils";
 import { useFetch } from "../../hooks/index";
 import { Pencil, CheckLg, Trash, PlusCircle } from "react-bootstrap-icons";
-import Modal from "react-bootstrap/Modal";
 
 import { saveSettings } from "../../utils/settingUtils";
 import { checkCookie } from "../../utils/index";
 import ServerError from "../error/serverError";
 import LoadingLogo from "../loading/loading";
 import Badge from "react-bootstrap/Badge";
-import QRCode from "qrcode";
 
 import {
   CHANGE_PASSWORD,
@@ -36,59 +34,6 @@ import {
 } from "../../constants/constants";
 
 export const SettingsForm = () => {
-  const [showModal, setShowModal] = useState(false);
-  const [qr, setQr] = useState(null);
-
-  useEffect(() => {
-    if (showModal) {
-      generateQR(
-        "otpauth://totp/5%405.com?secret=asd&algorithm=SHA1&digits=6&period=30"
-      ).then((ret) => {
-        setQr(ret);
-      });
-    }
-  }, [showModal]);
-
-  const generateQR = async (text) => {
-    try {
-      const ret = await QRCode.toDataURL(text);
-      console.log(await QRCode.toDataURL(text));
-      return ret;
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  const OPTModal = (
-    <Modal
-      show={true}
-      onHide={() => setShowModal(false)}
-      size="lg"
-      aria-labelledby="contained-modal-title-vcenter"
-      centered
-    >
-      <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">
-          View Receipt
-        </Modal.Title>
-      </Modal.Header>
-      <Modal.Body className={"receipt_modal"}>
-        <img src={qr} />
-      </Modal.Body>
-      <Modal.Footer>
-        <Button
-          variant="danger"
-          disabled={false}
-          onClick={() => {
-            setShowModal(false);
-          }}
-        >
-          Close
-        </Button>
-      </Modal.Footer>
-    </Modal>
-  );
-
   const {
     response: activeBucketResponse = [],
     error: activeBucketError = null,
@@ -238,7 +183,6 @@ export const SettingsForm = () => {
   );
   return (
     <>
-      {OPTModal}
       <Container>
         <Row>
           <Col xs={6}>
