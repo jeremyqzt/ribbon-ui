@@ -7,8 +7,6 @@ import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
 
 export const MFAPage = () => {
-  const [showModal, setShowModal] = useState(false);
-
   const [qr, setQr] = useState(null);
 
   const generateQR = async (text) => {
@@ -22,14 +20,12 @@ export const MFAPage = () => {
   };
 
   useEffect(() => {
-    if (showModal) {
-      generateQR(
-        "otpauth://totp/5%405.com?secret=asd&algorithm=SHA1&digits=6&period=30"
-      ).then((ret) => {
-        setQr(ret);
-      });
-    }
-  }, [showModal]);
+    generateQR(
+      "otpauth://totp/5%405.com?secret=asd&algorithm=SHA1&digits=6&period=30"
+    ).then((ret) => {
+      setQr(ret);
+    });
+  }, []);
 
   return (
     <>
