@@ -6,6 +6,7 @@ import {
   forgotPasswordUrl,
   resetPasswordUrl,
   resetPasswordForm,
+  mfaUrl,
 } from "../constants/settings";
 
 export const postData = async (url = "", data = {}, auth = false) => {
@@ -202,4 +203,16 @@ export const serialize = (url, obj) => {
   const toSerialize = new URL(url);
   toSerialize.search = new URLSearchParams(obj);
   return toSerialize.toString();
+};
+
+export const createMfa = async (
+) => {
+  const data = {};
+  const path = `${domainRoot}${mfaUrl}`;
+  return postData(path, data, true).then((res) => {
+    if (!res.ok) {
+      throw new Error();
+    }
+    return res.json();
+  });
 };

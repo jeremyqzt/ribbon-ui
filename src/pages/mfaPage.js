@@ -12,7 +12,6 @@ export const MFAPage = () => {
   const generateQR = async (text) => {
     try {
       const ret = await QRCode.toDataURL(text);
-      console.log(await QRCode.toDataURL(text));
       return ret;
     } catch (err) {
       console.error(err);
