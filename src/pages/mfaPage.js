@@ -5,6 +5,7 @@ import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
+import { createMfa } from "../utils/index";
 
 export const MFAPage = () => {
   const [qr, setQr] = useState(null);
@@ -19,10 +20,10 @@ export const MFAPage = () => {
   };
 
   useEffect(() => {
-    generateQR(
-      "otpauth://totp/5%405.com?secret=asd&algorithm=SHA1&digits=6&period=30"
-    ).then((ret) => {
-      setQr(ret);
+    createMfa().then((res) => {
+      generateQR(res).then((ret) => {
+        setQr(ret);
+      });
     });
   }, []);
 
