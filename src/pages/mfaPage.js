@@ -36,7 +36,7 @@ export const MFAPage = () => {
 
   return (
     <>
-      <Header activeId={3} />
+      <Header activeId={-1} />
       <NotificationContainer />
       <Container className={"receipt_container"}>
         <img src={qr} />
