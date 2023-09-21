@@ -6,6 +6,13 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
 import { createMfa } from "../utils/index";
+import Header from "../components/header";
+import { SettingsForm } from "../components/settings/settings";
+
+import "../style/profile.css";
+
+import { NotificationContainer } from "react-notifications";
+import {Footer} from '../components/footer/footer';
 
 export const MFAPage = () => {
   const [qr, setQr] = useState(null);
@@ -29,13 +36,12 @@ export const MFAPage = () => {
 
   return (
     <>
-      <Container>
-        <Row>
-          <Col xs={6}>
-            <img src={qr} />
-          </Col>
-        </Row>
+      <Header activeId={3} />
+      <NotificationContainer />
+      <Container className={"receipt_container"}>
+        <img src={qr} />
       </Container>
+      <Footer />
     </>
   );
 };
