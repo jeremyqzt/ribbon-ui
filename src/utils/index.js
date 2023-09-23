@@ -216,3 +216,17 @@ export const createMfa = async (
     return res.json();
   });
 };
+
+
+export const isMfaEnabled = async (
+  ) => {
+    const data = {};
+    const path = `${domainRoot}${mfaUrl}`;
+    return getData(path, data, true).then((res) => {
+      if (!res.ok) {
+        throw new Error();
+      }
+      return res.json();
+    });
+  };
+  
