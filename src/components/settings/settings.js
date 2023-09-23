@@ -478,6 +478,24 @@ export const SettingsForm = () => {
                   </Col>
                 </Row>
               </Form.Group>
+              <Form.Group className="mt-5 mb-3" controlId="bucketGroup">
+                <Form.Label>Multi Factor Authentication</Form.Label>
+                <Row>
+                  <Col xs={8}>
+                    MFA Status: Not Setup
+                  </Col>
+                  <Col xs={4}>
+                    <Button
+                      variant="danger"
+                      onClick={() => {
+                        window.location.href = "/mfa";
+                      }}
+                    >
+                      Setup MFA Now!
+                    </Button>
+                  </Col>
+                </Row>
+              </Form.Group>
             </Form>
           </Col>
           <Col xs={6}>
