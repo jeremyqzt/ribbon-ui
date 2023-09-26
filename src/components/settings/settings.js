@@ -46,8 +46,6 @@ export const SettingsForm = () => {
   const { response: isMFA = false, loading: isMFALoading } =
     useFetch(isMfaEnabled);
 
-    console.log(isMFA)
-
   const {
     response: listBucketResponse = [],
     error: listBucketError,
@@ -488,15 +486,19 @@ export const SettingsForm = () => {
               <Form.Group className="mt-5 mb-3" controlId="bucketGroup">
                 <Form.Label>Multi Factor Authentication</Form.Label>
                 <Row>
-                  <Col xs={8}>MFA Status: Not Setup</Col>
+                  <Col xs={8}>
+                    MFA Status:{" "}
+                    {isMFALoading ? "..." : isMFA ? "Enabled" : "Not Setup"}
+                  </Col>
                   <Col xs={4}>
                     <Button
                       variant="danger"
+                      disabled={isMFA || isMFALoading}
                       onClick={() => {
                         window.location.href = "/mfa";
                       }}
                     >
-                      Setup MFA Now!
+                      Setup MFA
                     </Button>
                   </Col>
                 </Row>
