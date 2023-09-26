@@ -205,8 +205,7 @@ export const serialize = (url, obj) => {
   return toSerialize.toString();
 };
 
-export const createMfa = async (
-) => {
+export const createMfa = async () => {
   const data = {};
   const path = `${domainRoot}${mfaUrl}`;
   return postData(path, data, true).then((res) => {
@@ -217,16 +216,13 @@ export const createMfa = async (
   });
 };
 
-
-export const isMfaEnabled = async (
-  ) => {
-    const data = {};
-    const path = `${domainRoot}${mfaUrl}`;
-    return getData(path, data, true).then((res) => {
-      if (!res.ok) {
-        throw new Error();
-      }
-      return res.json();
-    });
-  };
-  
+export const isMfaEnabled = async () => {
+  const data = {};
+  const path = `${domainRoot}${mfaUrl}`;
+  return getData(path, data, true).then((res) => {
+    if (!res.ok) {
+      throw new Error();
+    }
+    return res.json();
+  });
+};

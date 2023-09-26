@@ -6,7 +6,7 @@ import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
-import { createMfa } from "../utils/index";
+import { createMfa, isMfaEnabled } from "../utils/index";
 import Header from "../components/header";
 
 import "../style/profile.css";
@@ -28,6 +28,9 @@ export const MFAPage = () => {
   };
 
   useEffect(() => {
+    isMfaEnabled(res => {
+      return;
+    })
     createMfa().then((res) => {
       generateQR(res).then((ret) => {
         setQr(ret);

@@ -14,6 +14,8 @@ import {
   setActiveBucket,
 } from "../../utils/bucketUtils";
 
+import { isMfaEnabled } from "../../utils/index";
+
 import { addVendors, getVendors, deleteVendor } from "../../utils/receiptUtils";
 import { deleteAccount } from "../../utils/index";
 import { getSettings } from "../../utils/settingUtils";
@@ -40,6 +42,11 @@ export const SettingsForm = () => {
     loading: activeBucketLoading = false,
     retryCall: retryActiveBuckets,
   } = useFetch(getActiveBucket);
+
+  const { response: isMFA = false, loading: isMFALoading } =
+    useFetch(isMfaEnabled);
+
+    console.log(isMFA)
 
   const {
     response: listBucketResponse = [],
@@ -481,9 +488,7 @@ export const SettingsForm = () => {
               <Form.Group className="mt-5 mb-3" controlId="bucketGroup">
                 <Form.Label>Multi Factor Authentication</Form.Label>
                 <Row>
-                  <Col xs={8}>
-                    MFA Status: Not Setup
-                  </Col>
+                  <Col xs={8}>MFA Status: Not Setup</Col>
                   <Col xs={4}>
                     <Button
                       variant="danger"
