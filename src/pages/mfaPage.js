@@ -8,6 +8,7 @@ import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
 import { createMfa, isMfaEnabled } from "../utils/index";
 import Header from "../components/header";
+import { useFetch } from "../hooks/index";
 
 import "../style/profile.css";
 
@@ -17,6 +18,9 @@ import { Footer } from "../components/footer/footer";
 export const MFAPage = () => {
   const [qr, setQr] = useState(null);
   const [verifyCode, setVerifyCode] = useState(null);
+
+  const { response: isMFA = false, loading: isMFALoading } =
+    useFetch(isMfaEnabled);
 
   const generateQR = async (text) => {
     try {
@@ -28,9 +32,15 @@ export const MFAPage = () => {
   };
 
   useEffect(() => {
-    isMfaEnabled(res => {
+    if (!isMFALoading && isMFA) {
+      window.location.href = "/";
+    }
+  }, [isMFALoading, isMFA]);
+
+  useEffect(() => {
+    isMfaEnabled((res) => {
       return;
-    })
+    });
     createMfa().then((res) => {
       generateQR(res).then((ret) => {
         setQr(ret);
