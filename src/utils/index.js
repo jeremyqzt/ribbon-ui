@@ -7,6 +7,7 @@ import {
   resetPasswordUrl,
   resetPasswordForm,
   mfaUrl,
+  mfaVerifyUrl,
 } from "../constants/settings";
 
 export const postData = async (url = "", data = {}, auth = false) => {
@@ -219,6 +220,17 @@ export const createMfa = async () => {
 export const isMfaEnabled = async () => {
   const data = {};
   const path = `${domainRoot}${mfaUrl}`;
+  return getData(path, data, true).then((res) => {
+    if (!res.ok) {
+      throw new Error();
+    }
+    return res.json();
+  });
+};
+
+export const verifyMfa = async (code) => {
+  const data = { token: code };
+  const path = `${domainRoot}${mfaVerifyUrl}`;
   return getData(path, data, true).then((res) => {
     if (!res.ok) {
       throw new Error();
