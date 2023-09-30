@@ -6,7 +6,7 @@ import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
-import { createMfa, isMfaEnabled } from "../utils/index";
+import { createMfa, isMfaEnabled, verifyMfa } from "../utils/index";
 import Header from "../components/header";
 import { useFetch } from "../hooks/index";
 
@@ -61,7 +61,7 @@ export const MFAPage = () => {
 
         <Row className="flex justify-content-md-center">
           <Col className="d-flex justify-content-md-center">
-            <img src={qr} />
+            <img src={qr} alt={qr} />
           </Col>
         </Row>
 
@@ -85,10 +85,20 @@ export const MFAPage = () => {
               />
             </Col>
             <Col xs={2}>
-              <Button variant="danger">Submit</Button>
+              <Button
+                variant="danger"
+                onClick={() => {
+                  verifyMfa(verifyCode).then((res) => {
+                    window.location.hres = "/settings";
+                  });
+                }}
+              >
+                Submit
+              </Button>
             </Col>
           </Col>
         </Row>
+        <Row></Row>
       </Container>
       <Footer />
     </>
