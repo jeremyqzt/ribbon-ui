@@ -231,7 +231,7 @@ export const isMfaEnabled = async () => {
 export const verifyMfa = async (code) => {
   const data = { token: code };
   const path = `${domainRoot}${mfaVerifyUrl}`;
-  return getData(path, data, true).then((res) => {
+  return postData(path, data, true).then((res) => {
     if (!res.ok) {
       throw new Error();
     }
