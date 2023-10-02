@@ -488,7 +488,7 @@ export const SettingsForm = () => {
                 <Row>
                   <Col xs={8}>
                     MFA Status:{" "}
-                    {isMFALoading ? "..." : isMFA ? "Enabled" : "Not Setup"}
+                    {isMFALoading ? "..." : isMFA ? "✅ Enabled" : "❌ Not Setup"}
                   </Col>
                   <Col xs={4}>
                     <Button
