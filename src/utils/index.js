@@ -8,6 +8,7 @@ import {
   resetPasswordForm,
   mfaUrl,
   mfaVerifyUrl,
+  authV2Url,
 } from "../constants/settings";
 
 export const postData = async (url = "", data = {}, auth = false) => {
@@ -94,6 +95,23 @@ export const serverComm = async (
 export const signIn = async (username, password, navigate) => {
   const data = { username, password };
   const path = `${domainRoot}${authUrl}`;
+  return postData(path, data)
+    .then((res) => res.json())
+    .then((res) => {
+      if (res.access && res.refresh) {
+        setCookie("username", username, 5 * 24);
+        setCookie("access_token", res.access, 5 * 24);
+        setCookie("refresh_token", res.refresh, 5 * 24);
+        navigate("/main");
+      } else {
+        throw new Error("Incorrect Token");
+      }
+    });
+};
+
+export const signInV2 = async (username, password, navigate) => {
+  const data = { username, password };
+  const path = `${domainRoot}${authV2Url}`;
   return postData(path, data)
     .then((res) => res.json())
     .then((res) => {

@@ -55,7 +55,9 @@ export const MFAPage = () => {
       <Container className={"receipt_container"}>
         <Row className="flex justify-content-md-center">
           <Col className=" d-flex justify-content-md-center">
-            <h3 className="mt-4 mb-3">Provide the code from you authenticator app.</h3>
+            <h3 className="mt-4 mb-3">
+              Provide the code from you authenticator app.
+            </h3>
           </Col>
         </Row>
 
@@ -68,7 +70,9 @@ export const MFAPage = () => {
         <Row className="flex justify-content-md-center">
           <Col className=" d-flex justify-content-md-center">
             <p className="mt-4 mb-3">
-              You have enabled 2-factor authentication on your account. You're current session will expire in 45 seconds. Please provide the 2-factor code to continue your session.
+              You have enabled 2-factor authentication on your account. You're
+              current session will expire in 45 seconds. Please provide the
+              2-factor code to continue your session.
             </p>
           </Col>
         </Row>

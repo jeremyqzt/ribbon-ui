@@ -7,6 +7,8 @@ if (TESTING === false) {
 }
 
 export const authUrl = "auth/token/";
+export const authV2Url = "v2/auth/token/";
+
 export const mfaUrl = "user/mfaCreate/";
 export const mfaVerifyUrl = "user/mfaVerify/";
 
