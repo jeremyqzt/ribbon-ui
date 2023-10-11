@@ -2,11 +2,15 @@ const TESTING = window.location.hostname === "localhost";
 
 export let domainRoot = "http://localhost:8000/";
 
+
+
+export let authUrl = "v2/auth/token/";
+
 if (TESTING === false) {
   domainRoot = "https://api.ribbonreceipts.com/";
+  authUrl = "auth/token/";
 }
 
-export const authUrl = "auth/token/";
 export const authV2Url = "v2/auth/token/";
 
 export const mfaUrl = "user/mfaCreate/";
