@@ -99,9 +99,16 @@ export const signIn = async (username, password, navigate) => {
     .then((res) => res.json())
     .then((res) => {
       if (res.access && res.refresh) {
-        setCookie("username", username, 5 * 24);
-        setCookie("access_token", res.access, 5 * 24);
-        setCookie("refresh_token", res.refresh, 5 * 24);
+        if (res.mfaRequired) {
+          setCookieSeconds("username", username, 45);
+          setCookieSeconds("access_token", res.access, 45);
+          setCookieSeconds("refresh_token", res.refresh, 45);
+        } else {
+          setCookie("username", username, 5 * 24);
+          setCookie("access_token", res.access, 5 * 24);
+          setCookie("refresh_token", res.refresh, 5 * 24);
+        }
+
         navigate("/main");
       } else {
         throw new Error("Incorrect Token");
@@ -175,6 +182,13 @@ export const signOut = () => {
 export const setCookie = (cname, cvalue, exHours) => {
   const d = new Date();
   d.setTime(d.getTime() + exHours * 60 * 60 * 1000);
+  let expires = "expires=" + d.toUTCString();
+  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+};
+
+export const setCookieSeconds = (cname, cvalue, seconds) => {
+  const d = new Date();
+  d.setTime(d.getTime() + seconds);
   let expires = "expires=" + d.toUTCString();
   document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 };
