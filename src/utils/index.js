@@ -100,7 +100,7 @@ export const signIn = async (username, password, navigate) => {
     .then((res) => {
       if (res.access && res.refresh) {
         if (res.mfaRequired) {
-          setCookieSeconds("username", username, 45);
+          setCookie("username", username, 5 * 24);
           setCookieSeconds("access_token", res.access, 45);
           setCookieSeconds("refresh_token", res.refresh, 45);
         } else {
@@ -260,13 +260,24 @@ export const isMfaEnabled = async () => {
   });
 };
 
-export const verifyMfa = async (code) => {
+export const verifyMfa = async (code, navigate) => {
   const data = { token: code };
   const path = `${domainRoot}${mfaVerifyUrl}`;
-  return postData(path, data, true).then((res) => {
-    if (!res.ok) {
-      throw new Error();
-    }
-    return res.json();
-  });
+  return postData(path, data, true)
+    .then((res) => {
+      if (!res.ok) {
+        throw new Error();
+      }
+      return res;
+    })
+    .then((res) => res.json())
+    .then((res) => {
+      if (res.access && res.refresh) {
+        setCookie("access_token", res.access, 5 * 24);
+        setCookie("refresh_token", res.refresh, 5 * 24);
+        navigate("/main");
+      } else {
+        throw new Error("Incorrect MFA Token");
+      }
+    });
 };
