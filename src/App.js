@@ -17,6 +17,7 @@ import { PasswordResetStart } from "./pages/resetPasswordPage";
 import { PasswordResetStartForm } from "./pages/resetPasswordForm";
 import { MonthlyTotalsPage } from "./pages/monthlyTotalsPage";
 import { MFAPage } from "./pages/mfaPage";
+import { MFALogin } from "./pages/mfaLogin";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-dropzone-uploader/dist/styles.css";
@@ -139,6 +140,14 @@ function App() {
           element={
             <CheckAuth>
               <MFAPage />
+            </CheckAuth>
+          }
+        />
+        <Route
+          path="/mfaVerify"
+          element={
+            <CheckAuth>
+              <MFALogin />
             </CheckAuth>
           }
         />

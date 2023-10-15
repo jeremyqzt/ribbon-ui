@@ -103,13 +103,16 @@ export const signIn = async (username, password, navigate) => {
           setCookie("username", username, 5 * 24);
           setCookieSeconds("access_token", res.access, 45);
           setCookieSeconds("refresh_token", res.refresh, 45);
+          navigate("/mfaVerify");
+
         } else {
           setCookie("username", username, 5 * 24);
           setCookie("access_token", res.access, 5 * 24);
           setCookie("refresh_token", res.refresh, 5 * 24);
+          navigate("/main");
+
         }
 
-        navigate("/main");
       } else {
         throw new Error("Incorrect Token");
       }
@@ -188,7 +191,7 @@ export const setCookie = (cname, cvalue, exHours) => {
 
 export const setCookieSeconds = (cname, cvalue, seconds) => {
   const d = new Date();
-  d.setTime(d.getTime() + seconds);
+  d.setTime(d.getTime() + seconds * 1000);
   let expires = "expires=" + d.toUTCString();
   document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 };
@@ -260,7 +263,7 @@ export const isMfaEnabled = async () => {
   });
 };
 
-export const verifyMfa = async (code, navigate) => {
+export const verifyMfa = async (code) => {
   const data = { token: code };
   const path = `${domainRoot}${mfaVerifyUrl}`;
   return postData(path, data, true)
@@ -275,7 +278,7 @@ export const verifyMfa = async (code, navigate) => {
       if (res.access && res.refresh) {
         setCookie("access_token", res.access, 5 * 24);
         setCookie("refresh_token", res.refresh, 5 * 24);
-        navigate("/main");
+        window.location.href = "/main";
       } else {
         throw new Error("Incorrect MFA Token");
       }

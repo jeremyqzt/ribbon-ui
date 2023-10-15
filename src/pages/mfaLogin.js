@@ -1,52 +1,22 @@
-import QRCode from "qrcode";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
-import { createMfa, isMfaEnabled, verifyMfa } from "../utils/index";
+import { verifyMfa } from "../utils/index";
 import Header from "../components/header";
-import { useFetch } from "../hooks/index";
 
 import "../style/profile.css";
 
 import { NotificationContainer } from "react-notifications";
 import { Footer } from "../components/footer/footer";
 
-export const MFAPage = () => {
-  const [qr, setQr] = useState(null);
+export const MFALogin = () => {
+  const [loading, setLoading] = useState(false);
+
   const [verifyCode, setVerifyCode] = useState(null);
-
-  const { response: isMFA = false, loading: isMFALoading } =
-    useFetch(isMfaEnabled);
-
-  const generateQR = async (text) => {
-    try {
-      const ret = await QRCode.toDataURL(text);
-      return ret;
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  useEffect(() => {
-    if (!isMFALoading && isMFA) {
-      window.location.href = "/";
-    }
-  }, [isMFALoading, isMFA]);
-
-  useEffect(() => {
-    isMfaEnabled((res) => {
-      return;
-    });
-    createMfa().then((res) => {
-      generateQR(res).then((ret) => {
-        setQr(ret);
-      });
-    });
-  }, []);
 
   return (
     <>
@@ -60,12 +30,7 @@ export const MFAPage = () => {
             </h3>
           </Col>
         </Row>
-
-        <Row className="flex justify-content-md-center">
-          <Col className="d-flex justify-content-md-center">
-            <img src={qr} alt={qr} />
-          </Col>
-        </Row>
+      
 
         <Row className="flex justify-content-md-center">
           <Col className=" d-flex justify-content-md-center">
@@ -90,9 +55,11 @@ export const MFAPage = () => {
             <Col xs={2}>
               <Button
                 variant="danger"
+                disabled={loading}
                 onClick={() => {
-                  verifyMfa(verifyCode).then((res) => {
-                    window.location.hres = "/settings";
+                  setLoading(true);
+                  verifyMfa(verifyCode).finally(() => {
+                    setLoading(false);
                   });
                 }}
               >
