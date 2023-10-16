@@ -7,6 +7,7 @@ import {
   resetPasswordUrl,
   resetPasswordForm,
   mfaUrl,
+  mfaLogin,
   mfaVerifyUrl,
   authV2Url,
 } from "../constants/settings";
@@ -104,15 +105,12 @@ export const signIn = async (username, password, navigate) => {
           setCookieSeconds("access_token", res.access, 45);
           setCookieSeconds("refresh_token", res.refresh, 45);
           navigate("/mfaVerify");
-
         } else {
           setCookie("username", username, 5 * 24);
           setCookie("access_token", res.access, 5 * 24);
           setCookie("refresh_token", res.refresh, 5 * 24);
           navigate("/main");
-
         }
-
       } else {
         throw new Error("Incorrect Token");
       }
@@ -275,6 +273,32 @@ export const verifyMfa = async (code) => {
     })
     .then((res) => res.json())
     .then((res) => {
+      console.log(res);
+
+      if (res.access && res.refresh) {
+        setCookie("access_token", res.access, 5 * 24);
+        setCookie("refresh_token", res.refresh, 5 * 24);
+        window.location.href = "/main";
+      } else {
+        throw new Error("Incorrect MFA Token");
+      }
+    });
+};
+
+export const logInMfa = async (code) => {
+  const data = { token: code };
+  const path = `${domainRoot}${mfaLogin}`;
+  return postData(path, data, true)
+    .then((res) => {
+      if (!res.ok) {
+        throw new Error();
+      }
+      return res;
+    })
+    .then((res) => res.json())
+    .then((res) => {
+      console.log(res);
+
       if (res.access && res.refresh) {
         setCookie("access_token", res.access, 5 * 24);
         setCookie("refresh_token", res.refresh, 5 * 24);

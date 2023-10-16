@@ -5,7 +5,7 @@ import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
-import { verifyMfa } from "../utils/index";
+import { logInMfa } from "../utils/index";
 import Header from "../components/header";
 
 import "../style/profile.css";
@@ -58,7 +58,7 @@ export const MFALogin = () => {
                 disabled={loading}
                 onClick={() => {
                   setLoading(true);
-                  verifyMfa(verifyCode).finally(() => {
+                  logInMfa(verifyCode).finally(() => {
                     setLoading(false);
                   });
                 }}
