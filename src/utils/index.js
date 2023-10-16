@@ -273,7 +273,6 @@ export const verifyMfa = async (code) => {
     })
     .then((res) => res.json())
     .then((res) => {
-      console.log(res);
 
       if (res.access && res.refresh) {
         setCookie("access_token", res.access, 5 * 24);
@@ -297,8 +296,6 @@ export const logInMfa = async (code) => {
     })
     .then((res) => res.json())
     .then((res) => {
-      console.log(res);
-
       if (res.access && res.refresh) {
         setCookie("access_token", res.access, 5 * 24);
         setCookie("refresh_token", res.refresh, 5 * 24);
