@@ -264,24 +264,12 @@ export const isMfaEnabled = async () => {
 export const verifyMfa = async (code) => {
   const data = { token: code };
   const path = `${domainRoot}${mfaVerifyUrl}`;
-  return postData(path, data, true)
-    .then((res) => {
-      if (!res.ok) {
-        throw new Error();
-      }
-      return res;
-    })
-    .then((res) => res.json())
-    .then((res) => {
-
-      if (res.access && res.refresh) {
-        setCookie("access_token", res.access, 5 * 24);
-        setCookie("refresh_token", res.refresh, 5 * 24);
-        window.location.href = "/main";
-      } else {
-        throw new Error("Incorrect MFA Token");
-      }
-    });
+  return postData(path, data, true).then((res) => {
+    if (!res.ok) {
+      throw new Error();
+    }
+    return res.json();
+  });
 };
 
 export const logInMfa = async (code) => {
