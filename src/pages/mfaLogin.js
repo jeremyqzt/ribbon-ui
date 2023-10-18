@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
-import { logInMfa } from "../utils/index";
+import { logInMfa, signOut } from "../utils/index";
 import Header from "../components/header";
 
 import "../style/profile.css";
@@ -15,8 +15,24 @@ import { Footer } from "../components/footer/footer";
 
 export const MFALogin = () => {
   const [loading, setLoading] = useState(false);
+  const [remain, setRemain] = useState(45);
 
   const [verifyCode, setVerifyCode] = useState(null);
+
+  console.log(remain);
+
+  useEffect(() => {
+    setInterval(() => {
+      setRemain((o) => o - 1);
+    }, 1000);
+  }, []);
+
+  useEffect(() => {
+    if (remain <= 0) {
+      signOut();
+      window.location.href = "/";
+    }
+  }, [remain]);
 
   return (
     <>
@@ -30,7 +46,6 @@ export const MFALogin = () => {
             </h3>
           </Col>
         </Row>
-      
 
         <Row className="flex justify-content-md-center">
           <Col className=" d-flex justify-content-md-center">
