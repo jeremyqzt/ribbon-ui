@@ -50,9 +50,9 @@ export const MFALogin = () => {
         <Row className="flex justify-content-md-center">
           <Col className=" d-flex justify-content-md-center">
             <p className="mt-4 mb-3">
-              You have enabled 2-factor authentication on your account. You're
-              current session will expire in 45 seconds. Please provide the
-              2-factor code to continue your session.
+              {`You have enabled 2-factor authentication on your account. You're
+              current session will expire in ${remain} seconds. Please provide the
+              2-factor code to continue your session.`}
             </p>
           </Col>
         </Row>
