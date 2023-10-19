@@ -19,12 +19,12 @@ export const MFALogin = () => {
 
   const [verifyCode, setVerifyCode] = useState(null);
 
-  console.log(remain);
-
   useEffect(() => {
-    setInterval(() => {
+    const intervalId = setInterval(() => {
       setRemain((o) => o - 1);
     }, 1000);
+
+    return () => clearInterval(intervalId);
   }, []);
 
   useEffect(() => {
