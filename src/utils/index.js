@@ -285,8 +285,6 @@ export const disableMfa = async (code) => {
 };
 
 
-
-
 export const logInMfa = async (code) => {
   const data = { token: code };
   const path = `${domainRoot}${mfaLogin}`;
