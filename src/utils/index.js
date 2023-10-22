@@ -8,6 +8,7 @@ import {
   resetPasswordForm,
   mfaUrl,
   mfaLogin,
+  mfaDisable,
   mfaVerifyUrl,
   authV2Url,
 } from "../constants/settings";
@@ -271,6 +272,20 @@ export const verifyMfa = async (code) => {
     return res.json();
   });
 };
+
+export const disableMfa = async (code) => {
+  const data = { token: code };
+  const path = `${domainRoot}${mfaDisable}`;
+  return postData(path, data, true).then((res) => {
+    if (!res.ok) {
+      throw new Error();
+    }
+    return res.json();
+  });
+};
+
+
+
 
 export const logInMfa = async (code) => {
   const data = { token: code };

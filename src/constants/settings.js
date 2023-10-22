@@ -13,9 +13,12 @@ if (TESTING === false) {
 
 export const authV2Url = "v2/auth/token/";
 
+
+
 export const mfaUrl = "user/mfaCreate/";
 export const mfaVerifyUrl = "user/mfaVerify/";
 export const mfaLogin = "user/mfaLogin/";
+export const mfaDisable = "user/mfaDisable/";
 
 
 export const userCreateUrl = "user/create/";
