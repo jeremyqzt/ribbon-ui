@@ -16,35 +16,21 @@ import { NotificationContainer } from "react-notifications";
 import { Footer } from "../components/footer/footer";
 
 export const MFADisablePage = () => {
-  const [qr, setQr] = useState(null);
   const [verifyCode, setVerifyCode] = useState(null);
 
   const { response: isMFA = false, loading: isMFALoading } =
     useFetch(isMfaEnabled);
 
-  const generateQR = async (text) => {
-    try {
-      const ret = await QRCode.toDataURL(text);
-      return ret;
-    } catch (err) {
-      console.error(err);
-    }
-  };
 
   useEffect(() => {
-    if (!isMFALoading && isMFA) {
+    if (!isMFALoading && !isMFA) {
       window.location.href = "/";
     }
   }, [isMFALoading, isMFA]);
 
   useEffect(() => {
-    isMfaEnabled((res) => {
+    isMfaEnabled(() => {
       return;
-    });
-    createMfa().then((res) => {
-      generateQR(res).then((ret) => {
-        setQr(ret);
-      });
     });
   }, []);
 

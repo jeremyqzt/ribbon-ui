@@ -18,6 +18,7 @@ import { PasswordResetStartForm } from "./pages/resetPasswordForm";
 import { MonthlyTotalsPage } from "./pages/monthlyTotalsPage";
 import { MFAPage } from "./pages/mfaPage";
 import { MFALogin } from "./pages/mfaLogin";
+import { MFADisablePage } from "./pages/mfaDisablePage";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-dropzone-uploader/dist/styles.css";
@@ -164,6 +165,14 @@ function App() {
           element={
             <CheckAuth>
               <MonthlyTotalsPage />
+            </CheckAuth>
+          }
+        />
+        <Route
+          path="/disableMfa"
+          element={
+            <CheckAuth>
+              <MFADisablePage />
             </CheckAuth>
           }
         />
