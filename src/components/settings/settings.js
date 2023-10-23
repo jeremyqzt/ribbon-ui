@@ -493,12 +493,17 @@ export const SettingsForm = () => {
                   <Col xs={4}>
                     <Button
                       variant="danger"
-                      disabled={isMFA || isMFALoading}
+                      disabled={isMFALoading}
                       onClick={() => {
-                        window.location.href = "/mfa";
+                        if(!isMFA) {
+                          window.location.href = "/mfa";
+                        } else {
+                          window.location.href = "/disableMfa";
+
+                        }
                       }}
                     >
-                      Setup MFA
+                      {!isMFA? "Setup MFA" : "Disable MFA"}
                     </Button>
                   </Col>
                 </Row>
