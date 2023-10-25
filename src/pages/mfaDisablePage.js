@@ -69,7 +69,7 @@ export const MFADisablePage = () => {
                 variant="danger"
                 onClick={() => {
                   disableMfa(verifyCode).then(() => {
-                    window.location.hres = "/main";
+                    window.location.href = "/main";
                   });
                 }}
               >
