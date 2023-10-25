@@ -1,4 +1,3 @@
-import QRCode from "qrcode";
 import { useEffect, useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
@@ -6,7 +5,7 @@ import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
-import { createMfa, disableMfa, isMfaEnabled } from "../utils/index";
+import { disableMfa, isMfaEnabled } from "../utils/index";
 import Header from "../components/header";
 import { useFetch } from "../hooks/index";
 
