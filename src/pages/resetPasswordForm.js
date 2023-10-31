@@ -52,6 +52,12 @@ export const PasswordResetStartForm = () => {
             }}
             value={email}
           />
+          <p className="mb-4 noSelect">
+            {
+              "Please Note: Resetting your password also disables multifactor authentication"
+            }
+          </p>
+
           <textarea
             rows="3"
             className="form-control mb-4"
