@@ -89,7 +89,7 @@ export const MFAPage = () => {
                 variant="danger"
                 onClick={() => {
                   verifyMfa(verifyCode).then((res) => {
-                    window.location.hres = "/settings";
+                    window.location.href = "/settings";
                   });
                 }}
               >
