@@ -38,7 +38,7 @@ export const MFAPage = () => {
   }, [isMFALoading, isMFA]);
 
   useEffect(() => {
-    isMfaEnabled((res) => {
+    isMfaEnabled(() => {
       return;
     });
     createMfa().then((res) => {
