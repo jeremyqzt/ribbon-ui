@@ -6,6 +6,16 @@ import { useNavigate } from "react-router-dom";
 import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
 import Spinner from "react-bootstrap/Spinner";
+import Form from "react-bootstrap/Form";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Tooltip from "react-bootstrap/Tooltip";
+
+const renderTooltip = (props) => (
+  <Tooltip id="button-tooltip" {...props}>
+    Session cookies are strictly necessary for this application.
+    Analytics and user behaviour data are <b>not</b> collected.
+  </Tooltip>
+);
 
 export const Login = (props) => {
   const navigate = useNavigate();
@@ -13,6 +23,7 @@ export const Login = (props) => {
   const [pw1, setPw1] = useState("");
   const [pw2, setPw2] = useState("");
   const [loading, setLoading] = useState(false);
+  const [checked, setChecked] = useState(false);
 
   const [error, setError] = useState(null);
 
@@ -115,9 +126,40 @@ export const Login = (props) => {
               }}
             />
           )}
+          {!isSignIn && (
+            <>
+              <span className="mt-4">
+                {"This application may use cookie storage to host your "}
+              </span>
+              <OverlayTrigger
+                placement="right"
+                delay={{ show: 250, hide: 400 }}
+                overlay={renderTooltip}
+              >
+                <span
+                  style={{
+                    color: "blue",
+                    textDecoration: "underline",
+                  }}
+                >
+                  {"session information."}
+                </span>
+              </OverlayTrigger>
+              <div className="mt-4">
+                <Form.Check
+                  onChange={(e) => {
+                    setChecked(e.target.checked);
+                  }}
+                  type={"checkbox"}
+                  label={`I Understand`}
+                  id={`default-checkbox`}
+                />
+              </div>
+            </>
+          )}
           <Button
             className="btn btn-danger btn-block my-4"
-            disabled={loading}
+            disabled={loading || (!isSignIn && !checked)}
             onClick={handleSubmit}
           >
             {loading ? (
