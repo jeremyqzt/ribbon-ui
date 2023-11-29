@@ -11,6 +11,7 @@ import {
   mfaDisable,
   mfaVerifyUrl,
   authV2Url,
+  refreshUrl,
 } from "../constants/settings";
 
 export const postData = async (url = "", data = {}, auth = false) => {
@@ -114,6 +115,21 @@ export const signIn = async (username, password, navigate) => {
         }
       } else {
         throw new Error("Incorrect Token");
+      }
+    });
+};
+
+export const refresh = async () => {
+  const path = `${domainRoot}${refreshUrl}`;
+  return postData(path)
+    .then((res) => res.json())
+    .then((res) => {
+      if (res.access && res.refresh) {
+        // setCookie("username", username, 5 * 24);
+        setCookie("access_token", res.access, 5 * 24);
+        setCookie("refresh_token", res.refresh, 5 * 24);
+      } else {
+        throw new Error("Incorrect Refresh? something happened");
       }
     });
 };
@@ -283,7 +299,6 @@ export const disableMfa = async (code) => {
     return res.json();
   });
 };
-
 
 export const logInMfa = async (code) => {
   const data = { token: code };

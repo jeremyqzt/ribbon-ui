@@ -10,6 +10,7 @@ if (TESTING === false) {
   domainRoot = "https://api.ribbonreceipts.com/";
   authUrl = "auth/token/";
 }
+export const refreshUrl = "auth/token/refresh/";
 
 export const authV2Url = "v2/auth/token/";
 
