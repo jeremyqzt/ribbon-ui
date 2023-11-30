@@ -119,7 +119,7 @@ export const signIn = async (username, password, navigate) => {
     });
 };
 
-export const refresh = async () => {
+export const refreshToken = async () => {
   const path = `${domainRoot}${refreshUrl}`;
   return postData(path)
     .then((res) => res.json())
