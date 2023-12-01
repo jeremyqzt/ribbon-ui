@@ -18,6 +18,10 @@ export const postData = async (url = "", data = {}, auth = false) => {
   return serverCommContent(url, data, auth, "POST", "application/json");
 };
 
+export const postDataRefresh = async (url = "", data = {}, auth = false) => {
+  return serverCommContent(url, data, auth, "POST", "application/json", true);
+};
+
 export const postFormData = async (url = "", data = {}, auth = false) => {
   return serverComm(url, data, auth, "POST", "multipart/form-data");
 };
@@ -31,10 +35,11 @@ export const serverCommContent = async (
   data = {},
   auth = false,
   method = "POST",
-  contentType = "application/json"
+  contentType = "application/json",
+  isRefresh = false,
 ) => {
   const authParam = auth
-    ? { Authorization: `Bearer ${getCookie("access_token")}` }
+    ? { Authorization: `Bearer ${getCookie(isRefresh ? "refresh_token": "access_token")}` }
     : {};
 
   const body =
@@ -121,7 +126,7 @@ export const signIn = async (username, password, navigate) => {
 
 export const refreshToken = async () => {
   const path = `${domainRoot}${refreshUrl}`;
-  return postData(path)
+  return postDataRefresh(path)
     .then((res) => res.json())
     .then((res) => {
       if (res.access && res.refresh) {
