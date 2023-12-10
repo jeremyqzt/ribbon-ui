@@ -2,7 +2,7 @@ import "./App.css";
 import HttpsRedirect from "react-https-redirect";
 
 import { useEffect } from "react";
-
+import { Refresh } from "./components/refresh/refresh";
 import { MainPage } from "./pages/mainPage";
 import { Login } from "./pages/loginPage";
 import { PasswordReset } from "./pages/passwordPage";
@@ -99,9 +99,11 @@ function App() {
         <Route
           path="/main"
           element={
-            <CheckAuth>
-              <MainPage />
-            </CheckAuth>
+            <Refresh>
+              <CheckAuth>
+                <MainPage />
+              </CheckAuth>
+            </Refresh>
           }
         />
         <Route
