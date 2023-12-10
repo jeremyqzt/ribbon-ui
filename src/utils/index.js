@@ -125,14 +125,16 @@ export const signIn = async (username, password, navigate) => {
 };
 
 export const refreshToken = async () => {
+  const data = {
+    refresh: getCookie("refresh_token"),
+  }
   const path = `${domainRoot}${refreshUrl}`;
-  return postDataRefresh(path)
+  return postDataRefresh(path, data)
     .then((res) => res.json())
     .then((res) => {
       if (res.access && res.refresh) {
         // setCookie("username", username, 5 * 24);
         setCookie("access_token", res.access, 5 * 24);
-        setCookie("refresh_token", res.refresh, 5 * 24);
       } else {
         throw new Error("Incorrect Refresh? something happened");
       }
