@@ -109,33 +109,41 @@ function App() {
         <Route
           path="/buckets"
           element={
-            <CheckAuth>
-              <BucketsPage />
-            </CheckAuth>
+            <Refresh>
+              <CheckAuth>
+                <BucketsPage />
+              </CheckAuth>
+            </Refresh>
           }
         />
         <Route
           path="/upload"
           element={
-            <CheckAuth>
-              <ReceiptsPage />
-            </CheckAuth>
+            <Refresh>
+              <CheckAuth>
+                <ReceiptsPage />
+              </CheckAuth>
+            </Refresh>
           }
         />
         <Route
           path="/profile"
           element={
-            <CheckAuth>
-              <ProfilePage />
-            </CheckAuth>
+            <Refresh>
+              <CheckAuth>
+                <ProfilePage />
+              </CheckAuth>
+            </Refresh>
           }
         />
         <Route
           path="/settings"
           element={
-            <CheckAuth>
-              <SettingsPage />
-            </CheckAuth>
+            <Refresh>
+              <CheckAuth>
+                <SettingsPage />
+              </CheckAuth>
+            </Refresh>
           }
         />
         <Route
