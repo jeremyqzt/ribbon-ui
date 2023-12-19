@@ -165,17 +165,21 @@ function App() {
         <Route
           path="/analytics"
           element={
-            <CheckAuth>
-              <ChartPage />
-            </CheckAuth>
+            <Refresh>
+              <CheckAuth>
+                <ChartPage />
+              </CheckAuth>
+            </Refresh>
           }
         />
         <Route
           path="/monthylTotals"
           element={
-            <CheckAuth>
-              <MonthlyTotalsPage />
-            </CheckAuth>
+            <Refresh>
+              <CheckAuth>
+                <MonthlyTotalsPage />
+              </CheckAuth>
+            </Refresh>
           }
         />
         <Route
