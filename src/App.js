@@ -149,17 +149,21 @@ function App() {
         <Route
           path="/mfa"
           element={
-            <CheckAuth>
-              <MFAPage />
-            </CheckAuth>
+            <Refresh>
+              <CheckAuth>
+                <MFAPage />
+              </CheckAuth>
+            </Refresh>
           }
         />
         <Route
           path="/mfaVerify"
           element={
-            <CheckAuth>
-              <MFALogin />
-            </CheckAuth>
+            <Refresh>
+              <CheckAuth>
+                <MFALogin />
+              </CheckAuth>
+            </Refresh>
           }
         />
         <Route
